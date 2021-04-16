@@ -28,21 +28,22 @@
 # See docs/COPYRIGHT.rdoc for more details.
 #++
 
-module API
-  module V3
-    module Companies
-      class CompaniesAPI < ::API::OpenProjectAPI
-        resources :companies do
-          route_param :id, type: Integer, desc: 'Company ID' do
-            after_validation do
-              @company = Company.find(params[:id])
-            end
+module Companies
+  class BaseContract < ::ModelContract
+    include RequiresAdminGuard
 
-            get &::API::V3::Utilities::Endpoints::Show.new(model: Company).mount
-            patch &::API::V3::Utilities::Endpoints::Update.new(model: Company).mount
-          end
-        end
-      end
+    def self.model
+      Company
+    end
+
+    attribute :name do
+      validate_name
+    end
+
+    private
+
+    def validate_name
+      errors.add :name, :include_alphabetical_value unless model.name&.match?(/[a-zA-Z]/)
     end
   end
 end

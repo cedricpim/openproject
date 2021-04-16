@@ -28,21 +28,7 @@
 # See docs/COPYRIGHT.rdoc for more details.
 #++
 
-module API
-  module V3
-    module Companies
-      class CompaniesAPI < ::API::OpenProjectAPI
-        resources :companies do
-          route_param :id, type: Integer, desc: 'Company ID' do
-            after_validation do
-              @company = Company.find(params[:id])
-            end
-
-            get &::API::V3::Utilities::Endpoints::Show.new(model: Company).mount
-            patch &::API::V3::Utilities::Endpoints::Update.new(model: Company).mount
-          end
-        end
-      end
-    end
+module Companies
+  class SetAttributesService < ::BaseServices::SetAttributes
   end
 end
