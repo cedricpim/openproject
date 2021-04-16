@@ -47,6 +47,7 @@ module API
       mount ::API::V3::Attachments::AttachmentsAPI
       mount ::API::V3::Capabilities::CapabilitiesAPI
       mount ::API::V3::Categories::CategoriesAPI
+      mount ::API::V3::Companies::CompaniesAPI
       mount ::API::V3::Configuration::ConfigurationAPI
       mount ::API::V3::CustomActions::CustomActionsAPI
       mount ::API::V3::CustomOptions::CustomOptionsAPI
